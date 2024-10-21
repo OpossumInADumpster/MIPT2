@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         this.tvMain = findViewById(R.id.tvMain);
        // this.spSelectOptions = findViewById(R.id.spSelectOptions);
 
-        this.spSelectOptions =  (Spinner) findViewById(R.id.spSelectOptions);
+        this.spSelectOptions =  findViewById(R.id.spSelectOptions);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.selection_options,
                 android.R.layout.simple_spinner_item);
 
@@ -49,15 +49,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnCountClick(View view) {
-        if (this.spSelectOptions.getSelectedItem().equals("Symbols")) {
+        if (this.edUserInput.getText().toString().isEmpty()) {
+            this.tvMain.setText("0");
+            Toast.makeText(this, "Please enter text", Toast.LENGTH_SHORT).show();
+        } else if (this.spSelectOptions.getSelectedItem().equals("Symbols")) {
             int result = TextCounter.countSymbols(this.edUserInput.getText().toString());
             Log.i("CountResult", String.valueOf(result));
             this.tvMain.setText(String.valueOf(result));
-        }
-        else
-        {
+        } else if (this.spSelectOptions.getSelectedItem().equals("Words")) {
+            int result = TextCounter.countWords(this.edUserInput.getText().toString());
+            Log.i("CountResult", String.valueOf(result));
+            this.tvMain.setText(String.valueOf(result));
+        } else {
             Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
         }
-
     }
+
+
+
 }
